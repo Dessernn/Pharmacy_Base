@@ -31,13 +31,21 @@ std::ostream& operator<<(std::ostream& out, const Pharmacy& p) {
     return out;
 }
 std::istream& operator>>(std::istream& in, Pharmacy& p) {
-    std::cout << "Введите название: ";
-    std::getline(in >> std::ws, p.name);
-    std::cout << "Введите цену, количество в упаковке, количество на складе (через пробел): ";
-    in >> p.price >> p.Count_In_Pack >> p.Count_On_Sclad;
-    in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "Введите симптомы: ";
-    std::getline(in, p.symptoms);
+    if (&in == &std::cin) {
+        std::cout << "Введите название: ";
+        std::getline(in >> std::ws, p.name);
+        std::cout << "Введите цену, количество в упаковке, количество на складе (через пробел): ";
+        in >> p.price >> p.Count_In_Pack >> p.Count_On_Sclad;
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Введите симптомы: ";
+        std::getline(in, p.symptoms);
+    } else {
+        std::getline(in >> std::ws, p.name);
+        in >> p.price >> p.Count_In_Pack >> p.Count_On_Sclad;
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(in, p.symptoms);
+    }
     return in;
 }
+
 
